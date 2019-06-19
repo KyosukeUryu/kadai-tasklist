@@ -2,8 +2,20 @@
 
 <ul>
   <% @tasks.each do |task| %>
-    <li><%= link_to task.id, task_path(task) %> : <%= task.status %> &gt; <%= task.content %></li>
+    <li><%= link_to task.id, task_path(task) %> : <%= task.status %> &gt; <%= task.content %> 
+    <%= form_with(model: task, local: true) do |f| %>
+      <%= f.text_field :content %>
+      <%= f.text_field :status %>
+      <%= f.submit "投稿" %>
+    <% end %>
+    </li>
   <% end %>
 </ul>
+
+<%= form_with(model: Task.new, local: true) do |f| %>
+<%= f.text_field :content %>
+<%= f.text_field :status %>
+<%= f.submit "投稿" %>
+<% end %>
 
 <%= link_to 'タスク新規作成', new_task_path %>
