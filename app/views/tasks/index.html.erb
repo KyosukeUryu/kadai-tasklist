@@ -8,20 +8,12 @@
       <th>ID</th>
       <th>Content</th>
       <th>Status</th>
-      <th>Edit</th>
     </tr>
     <% @tasks.each do |task| %>
       <tr>
         <td><%= link_to task.id, task_path(task) %></td>
         <td><%= task.content %></td>
         <td><%= task.status %></td>
-        <td>
-          <%= form_with(model: Task.new, local: true) do |f| %>
-            <%= f.text_field :content %>
-            <%= f.text_field :status %>
-            <%= f.submit "投稿" %>
-          <% end %>
-        </td>
       </tr>
     <% end %>
   </table>

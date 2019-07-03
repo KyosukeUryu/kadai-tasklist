@@ -1,5 +1,23 @@
 <h1>id: <%= @task.id %>の編集ページ</h1>
 
-<%= render 'form', task: @task %>
+<%= form_with(model: @task, local: true) do |f| %>
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% @task.errors.full_messages.each do |tsk| %>
+          <li><%= tsk %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <%= f.label :status, 'ステータス' %>
+  <%= f.text_field :status  %>
+  
+  <%= f.label :content, '新規タスク' %>
+  <%= f.text_field :content %>
+  
+  <%= f.submit '作成' %>
+<% end %>
 
 <%= link_to '一覧に戻る', tasks_path %>
