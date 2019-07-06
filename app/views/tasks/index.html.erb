@@ -1,34 +1,21 @@
-<% if logged_in? %>
-  <p>ログイン完了ユーザ：<%= current_user.name %></p>
-  <h1>タスク一覧</h1>
-  
-  
-  <table class="table">
+<p>ログイン完了ユーザ：<%= current_user.name %></p>
+<h1>タスク一覧</h1>
+
+
+<table class="table">
+  <tr>
+    <th>ID</th>
+    <th>Content</th>
+    <th>Status</th>
+  </tr>
+  <% @tasks.each do |task| %>
     <tr>
-      <th>ID</th>
-      <th>Content</th>
-      <th>Status</th>
+      <td><%= link_to task.id, task_path(task) %></td>
+      <td><%= task.content %></td>
+      <td><%= task.status %></td>
     </tr>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= link_to task.id, task_path(task) %></td>
-        <td><%= task.content %></td>
-        <td><%= task.status %></td>
-      </tr>
-    <% end %>
-  </table>
-  
-  <%= form_with(model: Task.new, local: true) do |f| %>
-  <%= f.text_field :content %>
-  <%= f.text_field :status %>
-  <%= f.submit "投稿" %>
   <% end %>
-  
-  <%= link_to 'タスク新規作成', new_task_path %>
-<% else %>
-  <div class="center jumbotron">
-    <div class="text-center">
-      <h1>Tasklistにようこそ</h1>
-    </div>
-  </div>
-<% end %>
+</table>
+
+
+<%= link_to 'タスク新規作成', new_task_path %>

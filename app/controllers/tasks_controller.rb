@@ -1,9 +1,9 @@
 class TasksController < ApplicationController
-  before_action :require_user_logged_in, only: [:show, :edit, :create]
-  before_action :set_task_user, only: [:show, :edit, :update, :destroy]
-  before_action :check_user, only: [:show, :edit, :update, :destroy]
+  before_action :require_user_logged_in
+  #before_action :set_task_user, only: [:show, :edit, :update, :destroy]
+  #before_action :check_user, only: [:show, :edit, :update, :destroy]
   #before_action :user_control, only: [:show, :new, :create, :edit, :update, :destroy]
-  before_action :correct_user, only: [:show, :update, :destroy]
+  before_action :correct_user, only: [:show, :edit, :update, :destroy]
   def index
     if logged_in?
       # @tasks = current_user.tasks.order(id: :desc).page(params[:page])
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
 
     if @task.save
       flash[:success] = '新規タスクが作成されました'
-      redirect_to @task
+      redirect_to root_path
       
     else
       flash[:danger] = 'タスクが作成できませんでした'
@@ -61,13 +61,13 @@ class TasksController < ApplicationController
   
   private
   
-  def set_task_user
-    @task = current_user.tasks.find_by(id: params[:id])
-  end
+  #def set_task_user
+    #@task = current_user.tasks.find_by(id: params[:id])
+  #end
   
-  def check_user
-    redirect_to root_url if @task.blank?
-  end
+  #def check_user
+    #redirect_to root_url if @task.blank?
+  #end
   
   def task_params
     params.require(:task).permit(:content, :status)
